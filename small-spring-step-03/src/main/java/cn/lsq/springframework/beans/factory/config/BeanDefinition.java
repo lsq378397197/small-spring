@@ -1,18 +1,17 @@
 package cn.lsq.springframework.beans.factory.config;
 
 /**
- * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- * 公众号：bugstack虫洞栈
- * Create by 小傅哥(fustack)
+ * BeanDefinition定义
+ *
+ * @author liushangqing
+ * @date 2022/6/5 10:23
  */
 public class BeanDefinition {
-
     private Class beanClass;
 
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
     }
-
 
     public Class getBeanClass() {
         return beanClass;
@@ -21,5 +20,4 @@ public class BeanDefinition {
     public void setBeanClass(Class beanClass) {
         this.beanClass = beanClass;
     }
-
 }

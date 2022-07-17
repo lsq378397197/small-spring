@@ -7,8 +7,13 @@ import net.sf.cglib.proxy.NoOp;
 
 import java.lang.reflect.Constructor;
 
+/**
+ * 使用cglib来实例化bean
+ *
+ * @author liushangqing
+ * @date 2022/6/6 20:06
+ */
 public class CglibSubclassingInstantiationStrategy implements InstantiationStrategy {
-
     @Override
     public Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor ctor, Object[] args) throws BeansException {
         Enhancer enhancer = new Enhancer();
@@ -19,8 +24,9 @@ public class CglibSubclassingInstantiationStrategy implements InstantiationStrat
                 return super.hashCode();
             }
         });
-        if (null == ctor) return enhancer.create();
+        if (null == ctor) {
+            return enhancer.create();
+        }
         return enhancer.create(ctor.getParameterTypes(), args);
     }
-
 }

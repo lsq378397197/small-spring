@@ -5,17 +5,16 @@ import cn.lsq.springframework.beans.factory.BeanFactory;
 import cn.lsq.springframework.beans.factory.config.BeanDefinition;
 
 /**
- * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- * 公众号：bugstack虫洞栈
- * Create by 小傅哥(fustack)
- * <p>
- * BeanDefinition注册表接口
+ * 抽象工厂
+ * 抽象类尽量不干具体的活儿，交给子类去实现
+ * @author liushangqing
+ * @date 2022/6/5 10:40
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
     @Override
     public Object getBean(String name) throws BeansException {
-        return doGetBean(name, null);
+        return doGetBean(name,null);
     }
 
     @Override
@@ -23,18 +22,20 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         return doGetBean(name, args);
     }
 
-    protected <T> T doGetBean(final String name, final Object[] args) {
-        Object bean = getSingleton(name);
-        if (bean != null) {
-            return (T) bean;
+    protected <T> T doGetBean(final String name, final Object[] args) throws BeansException {
+        Object singleton = getSingleton(name);
+        if (singleton != null) {
+            return (T)singleton;
         }
-
-        BeanDefinition beanDefinition = getBeanDefinition(name);
-        return (T) createBean(name, beanDefinition, args);
+        BeanDefinition beanDefinition=getBeanDefinition(name);
+        return (T) createBean(name,beanDefinition,args);
     }
+
+
+    protected abstract Object createBean(String name, BeanDefinition beanDefinition,Object[] args) throws BeansException;
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
+
 
 }

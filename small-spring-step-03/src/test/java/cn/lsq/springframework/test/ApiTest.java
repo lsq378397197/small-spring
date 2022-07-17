@@ -11,10 +11,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
- * 公众号：bugstack虫洞栈
- * Create by 小傅哥(fustack)
- */
+* @description: 4 基于Cglib实现含构造函数的类实例化策略
+* @author: shangqing
+* @date: 2022/6/6 20:53
+*/
 public class ApiTest {
 
     @Test
@@ -27,7 +27,7 @@ public class ApiTest {
         beanFactory.registerBeanDefinition("userService", beanDefinition);
 
         // 4.获取bean
-        UserService userService = (UserService) beanFactory.getBean("userService", "小傅哥");
+        UserService userService = (UserService) beanFactory.getBean("userService", "贾克斯");
         userService.queryUserInfo();
     }
 
@@ -41,7 +41,7 @@ public class ApiTest {
                 return super.hashCode();
             }
         });
-        Object obj = enhancer.create(new Class[]{String.class}, new Object[]{"小傅哥"});
+        Object obj = enhancer.create(new Class[]{String.class}, new Object[]{"贾克斯"});
         System.out.println(obj);
     }
 
@@ -55,7 +55,7 @@ public class ApiTest {
     public void test_constructor() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Class<UserService> userServiceClass = UserService.class;
         Constructor<UserService> declaredConstructor = userServiceClass.getDeclaredConstructor(String.class);
-        UserService userService = declaredConstructor.newInstance("小傅哥");
+        UserService userService = declaredConstructor.newInstance("贾克斯");
         System.out.println(userService);
     }
 
@@ -71,7 +71,7 @@ public class ApiTest {
             }
         }
         Constructor<UserService> declaredConstructor = beanClass.getDeclaredConstructor(constructor.getParameterTypes());
-        UserService userService = declaredConstructor.newInstance("小傅哥");
+        UserService userService = declaredConstructor.newInstance("贾克斯");
         System.out.println(userService);
     }
 
